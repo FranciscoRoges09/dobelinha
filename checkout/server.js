@@ -11,12 +11,12 @@ app.use(express.json());
 app.post('/pix', async (req, res) => {
   console.log('📦 Body recebido do front:', req.body);
   try {
-    const response = await fetch('https://api.realtechdev.com.br/v1/transactions', {
+    const response = await fetch('https://api.allowpay.online/functions/v1', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${process.env.REALTECH_API_KEY}`,
         'Content-Type': 'application/json',
-        'User-Agent': 'Buckpay API'
+        'User-Agent': 'Allow Pay'
       },      
       body: JSON.stringify(req.body)
     });
