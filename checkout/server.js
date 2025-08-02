@@ -15,12 +15,13 @@ app.post('/allow-pay', async (req, res) => {
     const response = await fetch('https://api.allowpay.com.br/v1/transactions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.ALLOW_PAY_API_KEY}`,
+        'Authorization': `Basic ${Buffer.from(`${process.env.ALLOW_PAY_SECRET_KEY}:${process.env.ALLOW_PAY_COMPANY_ID}`).toString('base64')}`,
         'Content-Type': 'application/json',
         'User-Agent': 'AllowPay API'
       },
       body: JSON.stringify({
         company_id: process.env.ALLOW_PAY_COMPANY_ID,
+        callback_url: 'https://dobelinha.vercel.app/webhook',  // URL do webhook, se necessário
         ...req.body  // Inclui os dados recebidos do frontend
       })
     });
